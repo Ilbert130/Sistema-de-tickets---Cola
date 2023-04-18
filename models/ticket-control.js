@@ -2,6 +2,16 @@ const path = require('path');
 const fs = require('fs');
 
 
+//Modelo del ticket
+class Ticket {
+
+    constructor(numero, escritorio) {
+        this.numero = numero;
+        this.escritorio = escritorio;
+    }
+}
+
+
 class TicketControl {
 
     constructor(){
