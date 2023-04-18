@@ -23,10 +23,13 @@ socket.on('ultimo-ticket', (payload) => {
     lblNuevoTicket.innerText = 'Ticket ' + payload;
 });
 
+socket.on('siguiente-ticket', (payload) => {
+    lblNuevoTicket.innerText = payload;
+});
+
 btnCrear.addEventListener( 'click', () => {
 
     socket.emit( 'siguiente-ticket', null, ( ticket ) => {
         lblNuevoTicket.innerText = ticket;
     });
-
 });
