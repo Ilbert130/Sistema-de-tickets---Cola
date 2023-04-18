@@ -47,10 +47,43 @@ class TicketControl {
         }
     }
 
+    //Guardar ticket
     guardarDB(){
         
         const dbPath = path.join(__dirname, '../db/data.json');
         fs.writeFileSync(dbPath, JSON.stringify(this.toJson));
+    }
+
+    //llamando el siguiente ticket
+    siguiente() {
+        this.ultimo += 1;
+        const ticket = new Ticket(this.ultimo, null);
+        this.tickets.push(ticket);
+
+        this.guardarDB();
+        return 'Ticket' + ticket.numero;
+    }
+
+    //Atendiendo el ticket
+    atenderTicket(escritorio) {
+
+        //No tenemos tickets
+        if(this.tickets.length === 0){
+            return null;
+        }
+
+        const ticket = this.tickets.shift(); //this.tickets[0];
+        ticket.escritorio = escritorio;
+
+        this.ultimos4.unshift(ticket);
+        
+        if(this.ultimos4.length > 4){
+            this.ultimos4.splice(-1, 1);
+        }
+
+        this.guardarDB();
+
+        return ticket;
     }
 }
 
