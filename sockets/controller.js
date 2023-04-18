@@ -6,14 +6,14 @@ const ticketControl = new TicketControl();
 
 const socketController = (socket) => {
 
-    // socket.on('disconnect', () => {});
+    socket.emit('ultimo-ticket', ticketControl.ultimo);
 
-    socket.on('enviar-mensaje', ( payload, callback ) => {
+    socket.on('siguiente-ticket', ( payload, callback ) => {
         
-        const id = 123456789;
-        callback( id );
+        const siguiente = ticketControl.siguiente();
+        callback(siguiente);
 
-        socket.broadcast.emit('enviar-mensaje', payload );
+        //TODO: Notificar que hay un nuevo ticket pendiente de asignar
 
     });
 }
